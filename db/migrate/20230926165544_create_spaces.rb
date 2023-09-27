@@ -7,7 +7,7 @@ class CreateSpaces < ActiveRecord::Migration[7.0]
       t.string :equipment
       t.integer :capacity
       t.boolean :availability
-      t.references :user_id, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end
