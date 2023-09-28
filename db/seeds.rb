@@ -12,10 +12,8 @@ orcun = User.create!(email: "o@example.com", password: "123456")
 my_users = [arianna, orcun]
 
 20.times do
-
-    Space.create!(
-        title: "#{Faker::ProgrammingLanguage.name} space",
-        user: my_users.sample
-    )
-
+  Space.create!(
+    title: "#{Faker::ProgrammingLanguage.name} space",
+    user: my_users.sample
+  )
 end
