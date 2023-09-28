@@ -5,3 +5,17 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+arianna = User.create!(email: "a@exmaple.com", password: "123456")
+orcun = User.create!(email: "o@example.com", password: "123456")
+
+my_users = [arianna, orcun]
+
+20.times do
+
+    Space.create!(
+        title: "#{Faker::ProgrammingLanguage.name} space",
+        user: my_users.sample
+    )
+
+end
