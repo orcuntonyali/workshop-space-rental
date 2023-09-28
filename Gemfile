@@ -83,7 +83,6 @@ group :test do
   gem 'rubocop-rspec'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 5.0' # provides RSpec one-liners to test common Rails functionality
-  gem 'faker'
   gem 'simplecov', require: false
   gem 'warden'
   gem 'warden-rspec-rails'
