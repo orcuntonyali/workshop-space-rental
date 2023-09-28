@@ -16,8 +16,5 @@ class SpacesController < ApplicationController
 
   def set_space
     @space = Space.find(params[:id])
-
-    flash[:alert] = 'Space not found'
-    redirect_to root_path
   end
 end
