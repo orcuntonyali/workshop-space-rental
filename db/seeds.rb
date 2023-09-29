@@ -2,8 +2,8 @@
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 
 # Clear previous seeds
-User.destroy_all
 Space.destroy_all
+User.destroy_all
 
 # Create a few users
 users = 5.times.map do
