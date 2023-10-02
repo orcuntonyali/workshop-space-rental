@@ -2,12 +2,10 @@ Rails.application.routes.draw do
   resources :products
   devise_for :users
   root to: "spaces#index"
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :spaces do
-    resources :bookings, only: [:new, :create]
+    resources :bookings, only: [:create] do
+      resources :reviews, only: [:new, :create]
+    end
+    resources :bookings, only: [:index]
   end
-
-  resources :bookings, only: [:index]
-  # Defines the root path route ("/")
-  # root "articles#index"
 end
