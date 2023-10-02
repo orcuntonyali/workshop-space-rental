@@ -8,4 +8,5 @@ Rails.application.routes.draw do
     end
     resources :bookings, only: [:index]
   end
+  get 'spaces_search', to: 'spaces#search'
 end
