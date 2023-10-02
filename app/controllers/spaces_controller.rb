@@ -42,4 +42,9 @@ class SpacesController < ApplicationController
   def space_params
     params.require(:space).permit(:title, :description, :facilities, :equipment, :capacity, :availability, :price, images: [])
   end
+
+  def search
+    @spaces = SpaceSearch.new(params).search
+    render :index
+  end
 end

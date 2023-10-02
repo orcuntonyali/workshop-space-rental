@@ -3,7 +3,7 @@
 </div>
 
 <div class="py-3 my-3">
-    <%= form_tag(products_path, method: :get) do %>
+    <%= form_tag(spaces_path, method: :get) do %>
     <%= label_tag :location, "Location:" %>
     <%= text_field_tag :location, params[:location] %>
 
@@ -22,9 +22,7 @@
         <div class="card space-card hvr-grow">
             <h2><%= space.title %></h2>
             <h3>Availability: <%= space.availability %></h3>
-            <h3><%= space.capacity %></h3>
+            <h3>Capacity: Max <%= space.capacity %> people</h3>
         </div>
     <% end %>
 </div>
-
-capacity up to 20 availability
