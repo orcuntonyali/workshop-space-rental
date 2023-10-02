@@ -1,7 +1,30 @@
-<h1>this is index.html.erb</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="primary-banner">
+    <h1 class="mt-4 mb-4">This is index.html.erb</h1>
+</div>
 
-<% @spaces.each do |space| %>
-    <h2><%= space.title %></h2>
-    <h3><%= space.user.email %></h3>
-<% end %>
+<div class="py-3 my-3">
+    <%= form_tag(products_path, method: :get) do %>
+    <%= label_tag :location, "Location:" %>
+    <%= text_field_tag :location, params[:location] %>
+
+    <%= label_tag :start_date, "Start Date:" %>
+    <%= date_field_tag :start_date, params[:start_date] %>
+
+    <%= label_tag :end_date, "End Date:" %>
+    <%= date_field_tag :end_date, params[:end_date] %>
+
+    <%= submit_tag "SEARCH" %>
+    <% end %>
+</div>
+
+<div class="container py-3 container--grid">
+    <% @spaces.each do |space| %>
+        <div class="card space-card hvr-grow">
+            <h2><%= space.title %></h2>
+            <h3>Availability: <%= space.availability %></h3>
+            <h3><%= space.capacity %></h3>
+        </div>
+    <% end %>
+</div>
+
+capacity up to 20 availability

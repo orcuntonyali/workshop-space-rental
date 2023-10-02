@@ -1,0 +1,27 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Products</h1>
+
+<div id="products">
+  <% @products.each do |product| %>
+    <%= render product %>
+    <p>
+      <%= link_to "Show this product", product %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New space", new_product_path %>
+
+<%= form_tag(products_path, method: :get) do %>
+  <%= label_tag :location, "Location:" %>
+  <%= text_field_tag :location, params[:location] %>
+
+  <%= label_tag :start_date, "Start Date:" %>
+  <%= date_field_tag :start_date, params[:start_date] %>
+
+  <%= label_tag :end_date, "End Date:" %>
+  <%= date_field_tag :end_date, params[:end_date] %>
+
+  <%= submit_tag "SEARCH" %>
+<% end %>
