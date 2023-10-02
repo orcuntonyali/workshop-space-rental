@@ -1,12 +1,10 @@
 Rails.application.routes.draw do
-  resources :products
   devise_for :users
+
   root to: "spaces#index"
-  resources :spaces do
-    resources :bookings, only: [:create] do
-      resources :reviews, only: [:new, :create]
-    end
-    resources :bookings, only: [:index]
+
+  resources :spaces, only: [:index, :show]
+  resources :bookings, only: [:index, :create, :show] do
+    resources :reviews, only: [:new, :create]
   end
-  get 'spaces_search', to: 'spaces#search'
 end
