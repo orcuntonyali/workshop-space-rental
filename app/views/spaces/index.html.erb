@@ -9,7 +9,7 @@
 
     <%= label_tag :availability, "Available only:" %>
     <%= check_box_tag :availability, true, params[:availability] %>
-
+    
     <%= submit_tag "SEARCH" %>
   <% end %>
 </div>
@@ -20,7 +20,7 @@
       <div class="card space-card hvr-grow">
         <h2><%= space.title %></h2>
         <h3><%= space.availability ? "Available" : "Unavailable" %></h3>
-        <h3>Capacity: <%= space.capacity %> p</h3>
+        <h3>Capacity: <%= space.capacity %> p.</h3>
         <p><strong>Listed by:</strong> <%= space.user.username %></p>
         <p><strong>Description:</strong> <%= space.description %></p>
         <p><strong>Facilities:</strong> <%= space.facilities %></p>
