@@ -1,0 +1,14 @@
+<h1>My Bookings</h1>
+
+<p>You have <%= @bookings.count %> bookings.</p>
+
+<% @bookings.each do |booking| %>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title"><%= booking.space.title %></h5>
+      <% if booking.reviews.nil? %>
+        <%= link_to "Leave a Review", new_space_review_path(booking.space), class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

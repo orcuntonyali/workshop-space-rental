@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_29_145443) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_02_205340) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,7 +40,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_29_145443) do
     t.bigint "booking_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "space_id", null: false
     t.index ["booking_id"], name: "index_reviews_on_booking_id"
+    t.index ["space_id"], name: "index_reviews_on_space_id"
   end
 
   create_table "spaces", force: :cascade do |t|
@@ -53,6 +55,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_29_145443) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "address"
+    t.float "latitude"
+    t.float "longitude"
+    t.string "city"
+    t.decimal "price"
     t.index ["user_id"], name: "index_spaces_on_user_id"
   end
 
@@ -76,5 +83,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_29_145443) do
   add_foreign_key "bookings", "spaces"
   add_foreign_key "bookings", "users"
   add_foreign_key "reviews", "bookings"
+  add_foreign_key "reviews", "spaces"
   add_foreign_key "spaces", "users"
 end

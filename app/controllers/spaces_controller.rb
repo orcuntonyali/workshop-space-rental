@@ -4,6 +4,19 @@ class SpacesController < ApplicationController
 
   def index
     @spaces = current_user&.lister? ? current_user.spaces : Space.all
+
+    if params[:city].present?
+      @spaces = @spaces.where(city: params[:city])
+    end
+
+    if params[:availability].present?
+      @spaces = @spaces.where(availability: true)
+    end
+
+    respond_to do |format|
+      format.html
+      format.js { render partial: "spaces_list", locals: { spaces: @spaces } }
+    end
   end
 
   def new
@@ -11,6 +24,7 @@ class SpacesController < ApplicationController
   end
 
   def show
+    @space = Space.find(params[:id])
   end
 
   def create

@@ -1,7 +1,49 @@
-<div class="primary-banner">
-    <h1>this is show page"</h1>
-    <h2><%= @space.title %></h2>
+<div class="row">
+  <div class="col-md-6">
+  </div>
+  <div class="card space-card col-md-6">
+    <h1><%= @space.title %></h1>
+    <h2><%= @space.availability ? "Available" : "Unavailable" %></h2>
+    <h2>Capacity: <%= @space.capacity %> p</h2>
+    <p><strong>Listed by:</strong> <%= @space.user.username %></p>
+    <p><strong>Description:</strong> <%= @space.description %></p>
+    <p><strong>Facilities:</strong> <%= @space.facilities %></p>
+    <p><strong>Equipment:</strong> <%= @space.equipment %></p>
+    <p><strong>Address:</strong> <%= @space.address %></p>
+  </div>
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-body">
+      <h3 class="card-title">Price</h3>
+      <p class="card-text"><%= number_to_currency(@space.price) %> per hour</p>
+      <% if user_signed_in? && current_user == @space.user %>
+        <%= link_to "View Bookings", space_bookings_path(@space), class: "btn btn-primary" %>
+      <% else %>
+       <%= form_with url: bookings_path, method: :post do %>
+        <%= hidden_field_tag :space_id, @space.id %>
+        <%= submit_tag "Book Now", class: "btn btn-primary" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
 
-<%# rails db:seed on your terminal
-use http://localhost:3000/spaces/3 to check the look of view %>
+
+<div class="row mt-5">
+  <div class="col-md-12">
+    <h2>Reviews</h2>
+    <% if @space.reviews.any? %>
+      <% @space.reviews.each do |review| %>
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title"><%= review.title %></h5>
+            <p class="card-text"><%= review.body %></p>
+            <p class="card-text"><small class="text-muted">Posted by <%= review.user.username %> on <%= review.created_at.strftime("%B %d, %Y") %></small></p>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <p>No reviews yet.</p>
+    <% end %>
+  </div>
+</div>
