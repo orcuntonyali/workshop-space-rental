@@ -13,6 +13,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 gem 'geocoder'
 gem 'carrierwave'
+# Cloudinary
 gem "cloudinary"
 
 # Use Redis adapter to run Action Cable in production
