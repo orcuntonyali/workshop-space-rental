@@ -4,17 +4,33 @@
   align-items: flex-start;
   padding: 1rem;
   margin: 1rem;
-  border: 1px solid #ccc;
+  border: 0cap;
   border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   max-width: 100%;
   overflow: hidden;
   white-space: normal;
+  color: rgb(40, 40, 40);
+  background-color: #ffffff;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem;
+  margin: 1rem;
+  border: 0cap;
+  border-radius: 0.5rem;
+  max-width: 60%;
+  overflow: hidden;
+  white-space: normal;
+  color: #ffffff;
+  background-color: #2E1AAB;
 }
 
 a {
-  color: inherit;
-  /* remove the text-decoration property */
+  color: inherit; /* remove the text-decoration property */
 }
 
 .hvr-grow {
@@ -22,8 +38,8 @@ a {
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgb(0, 0, 0);
   -webkit-transition-duration: 0.3s;
+  box-shadow: 2px 2px 2px rgb(83, 83, 83);
   transition-duration: 0.3s;
   -webkit-transition-property: transform;
   transition-property: transform;
