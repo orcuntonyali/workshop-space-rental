@@ -1,5 +1,5 @@
 <div class="primary-banner">
-    <h1 class="mt-4 mb-4">Welcome to WorkshopRentals</h1>
+    <h1 class="mt-4 mb-4">Welcome to Workshop Rentals, <%= @space.user.username %></h1>
 </div>
 
 <div class="py-3 my-3">
@@ -14,18 +14,18 @@
   <% end %>
 </div>
 
+  <% pictures = ["https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419179/Workshop/1.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419179/Workshop/2.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419179/Workshop/3.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419178/Workshop/4.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419178/Workshop/5.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419176/Workshop/6.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419176/Workshop/10.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419177/Workshop/7.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419175/Workshop/12.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419175/Workshop/14.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419175/Workshop/15.avif"] %>
+
 <div class="container py-3 container--grid">
+
   <% @spaces.each do |space| %>
     <%= link_to space_path(space) do %>
       <div class="card space-card hvr-grow">
+        <div class="my-3"> <%= cl_image_tag(pictures.sample, width: 350, height: 200, crop: :pad) %> </div>
         <h2><%= space.title %></h2>
         <h3><%= space.availability ? "Available 😄" : "Unavailable 😭" %></h3>
         <h3>Capacity: <%= space.capacity %> p.</h3>
-        <p><strong>Listed by:</strong> <%= space.user.username %></p>
         <p><strong>Description:</strong> <%= space.description %></p>
-        <p><strong>Facilities:</strong> <%= space.facilities %></p>
-        <p><strong>Equipment:</strong> <%= space.equipment %></p>
-        <p><strong>Address:</strong> <%= space.address %></p>
       </div>
     <% end %>
   <% end %>
