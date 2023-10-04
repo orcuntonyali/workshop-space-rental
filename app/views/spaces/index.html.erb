@@ -19,7 +19,7 @@
     <%= link_to space_path(space) do %>
       <div class="card space-card hvr-grow">
         <h2><%= space.title %></h2>
-        <h3><%= space.availability ? "Available" : "Unavailable" %></h3>
+        <h3><%= space.availability ? "Available 😄" : "Unavailable 😭" %></h3>
         <h3>Capacity: <%= space.capacity %> p.</h3>
         <p><strong>Listed by:</strong> <%= space.user.username %></p>
         <p><strong>Description:</strong> <%= space.description %></p>
