@@ -1,0 +1,43 @@
+.filter-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.filter-banner {
+    // background-color: #f8f8f8;
+    border: 1px solid #e5e5e5;
+    padding: 10px;
+    border-radius: 1px;
+  }
+  
+  .filter-banner label {
+    margin-right: 10px;
+  }
+  
+  .filter-banner input[type="text"] {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .filter-banner input[type="checkbox"] {
+    margin-top: 5px;
+  }
+  
+  .filter-banner input[type="submit"] {
+    background-color: #e77e28;
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .filter-banner input[type="submit"]:hover {
+    background-color: #2E1AAB;
+  }
+
+  .form-group {
+    display: inline-block;
+    margin-left: 30px; /* Adjust this value to add more or less space */
+  }
