@@ -35,23 +35,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_04_155333) do
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable"
   end
 
-  create_table "products", force: :cascade do |t|
-    t.string "name"
-    t.string "category"
-    t.decimal "price"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "reviews", force: :cascade do |t|
     t.integer "rating"
     t.text "comment"
     t.bigint "booking_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "space_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "space_id", null: false
     t.index ["booking_id"], name: "index_reviews_on_booking_id"
     t.index ["space_id"], name: "index_reviews_on_space_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "spaces", force: :cascade do |t|
@@ -62,13 +56,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_04_155333) do
     t.integer "capacity"
     t.boolean "availability"
     t.bigint "user_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "address"
     t.float "latitude"
     t.float "longitude"
     t.string "city"
     t.decimal "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_spaces_on_user_id"
   end
 
@@ -84,18 +78,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_04_155333) do
     t.integer "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "first_name"
-    t.string "last_name"
-    t.string "username"
-    t.integer "role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "bookings", "spaces"
-  add_foreign_key "bookings", "users"
+  add_foreign_key "bookings", "users", on_delete: :cascade
   add_foreign_key "reviews", "bookings"
   add_foreign_key "reviews", "spaces"
+  add_foreign_key "reviews", "users"
   add_foreign_key "spaces", "users"
 end
