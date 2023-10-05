@@ -99,6 +99,7 @@ spaces = 15.times.map do
     availability: [true, false].sample,
     user: lister,
     address: "#{Faker::Address.street_address}, #{city}",
+    city: city,
     latitude: Geocoder.search(city).first.latitude,
     longitude: Geocoder.search(city).first.longitude,
     price: rand(30..85)
@@ -118,7 +119,6 @@ reviewers = 25.times.map do
     role: 'booker'
   )
 end
-
 # Create bookings for spaces
 bookings = spaces.map do |space|
   reviewer = reviewers.sample
@@ -132,6 +132,7 @@ end
 bookings.each do |booking|
   rand(0..3).times do
     reviewer = reviewers.sample
+
     next if Review.exists?(user: reviewer, space: booking.space)  # Skip if this user has already reviewed this space
 
     Review.create!(
