@@ -5,13 +5,8 @@ class SpacesController < ApplicationController
 
   def index
     @spaces = Space.all
-
-    if params[:city]
-      @spaces = PgSearch.multisearch(params[:city]).map { |show| show.searchable }
-    end
-
-    if params[:availability].present?
-      @spaces = @spaces.where(availability: true)
+    if  params[:city]
+      @spaces = PgSearch.multisearch(params[:city]).map { |show| show.searchable}
     end
   end
 
@@ -23,9 +18,9 @@ class SpacesController < ApplicationController
 
   def set_space
     @space = Space.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    flash[:alert] = 'Space not found.'
-    redirect_to root_path
+    rescue ActiveRecord::RecordNotFound
+      flash[:alert] = 'Space not found.'
+      redirect_to root_path
   end
 
   def check_lister
