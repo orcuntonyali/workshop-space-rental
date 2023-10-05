@@ -9,17 +9,25 @@ User.destroy_all
 ActiveRecord::Base.connection.reset_pk_sequence!('spaces')
 ActiveRecord::Base.connection.reset_pk_sequence!('users')
 
-# Create a few users
-users = 5.times.map do
+# Create master user
+User.create!(
+  email: "tonyaliorcun@gmail.com",
+  password: '123456',
+  username: "orcuntonyali",
+  role: "booker"
+)
+
+# Create 5 listers
+listers = 5.times.map do
   User.create!(
     email: Faker::Internet.unique.email,
     password: '123456',
     username: Faker::Internet.unique.username,
-    role: ['booker', 'lister'].sample
+    role: 'lister'
   )
 end
 
-# Define an array of real German city names
+# German city names
 cities = [
   'Berlin',
   'Hamburg',
@@ -30,39 +38,98 @@ cities = [
   'Düsseldorf',
   'Dortmund',
   'Essen',
-  'Leipzig'
+  'Leipzig',
+  'Bremen',
+  'Dresden',
+  'Hannover',
+  'Nuremberg',
+  'Duisburg',
+  'Bochum',
+  'Wuppertal',
+  'Bielefeld',
+  'Bonn',
+  'Münster'
 ]
 
-# Create users with data
-10.times do
+# Facilities
+facilities = [
+  'Wi-Fi',
+  'Power outlets',
+  'Air conditioning',
+  'Heating',
+  'Whiteboard',
+  'Projector',
+  'Printer',
+  'Scanner',
+  'Coffee machine',
+  'Kitchen',
+  'Parking'
+]
+
+# Equipment
+equipment = [
+  'Laptop',
+  'Monitor',
+  'Keyboard',
+  'Mouse',
+  'Headphones',
+  'Microphone',
+  'Webcam',
+  'Tablet',
+  'Smartphone',
+  'Camera'
+]
+
+# Create 15 spaces
+spaces = 15.times.map do
+  city = cities.sample
+  lister = listers.sample
+  Space.create!(
+    title: "#{Faker::Educator.subject} Study Space",
+    description: Faker::Lorem.paragraph(sentence_count: 3),
+    facilities: facilities.sample(rand(1..5)).join(', '),
+    equipment: equipment.sample(rand(1..5)).join(', '),
+    capacity: rand(1..20),
+    availability: [true, false].sample,
+    user: lister,
+    address: "#{Faker::Address.street_address}, #{city}",
+    latitude: Geocoder.search(city).first.latitude,
+    longitude: Geocoder.search(city).first.longitude,
+    price: rand(30..85)
+  )
+end
+
+# Create 100 reviewers
+reviewers = 25.times.map do
   User.create!(
     email: Faker::Internet.unique.email,
     password: '123456',
     username: Faker::Internet.unique.username,
-    role: ['booker', 'lister'].sample
+    role: 'booker'
   )
 end
 
-# Create spaces with data
-20.times do
-  city = cities.sample
-  address = "#{Faker::Address.street_address}, #{city}"
-  result = Geocoder.search(city).first
+# Create bookings for spaces
+bookings = spaces.map do |space|
+  reviewer = reviewers.sample
+  Booking.create!(
+    user: reviewer,
+    space: space
+  )
+end
 
-  if result.present?
-    Space.create!(
-      title: "#{Faker::Educator.subject} Study Space",
-      description: Faker::Lorem.paragraph(sentence_count: 3),
-      facilities: Faker::House.furniture,
-      equipment: Faker::Appliance.equipment,
-      capacity: rand(1..20),
-      availability: [true, false].sample,
-      user: User.all.sample,
-      address: address,
-      latitude: result.latitude,
-      longitude: result.longitude
+# Create reviews for bookings
+bookings.each do |booking|
+  rand(0..3).times do
+    reviewer = reviewers.sample
+    next if Review.exists?(user: reviewer, space: booking.space)  # Skip if this user has already reviewed this space
+
+    Review.create!(
+      rating: rand(3..5),
+      comment: Faker::Lorem.paragraph(sentence_count: 3),
+      user: reviewer,
+      space: booking.space,
+      booking: booking
     )
-  else
-    puts "Unable to geocode city: #{city}"
   end
 end

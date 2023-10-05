@@ -5,7 +5,7 @@ class CreateBookings < ActiveRecord::Migration[7.0]
       t.time :booking_time
       t.boolean :status
       t.references :space, null: false, foreign_key: true
-      t.references :user, null: false, foreign_key: true
+      t.references :user, null: false, foreign_key: { on_delete: :cascade }
 
       t.timestamps
     end

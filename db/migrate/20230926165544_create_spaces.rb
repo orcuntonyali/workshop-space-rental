@@ -9,6 +9,13 @@ class CreateSpaces < ActiveRecord::Migration[7.0]
       t.boolean :availability
       t.references :user, null: false, foreign_key: true
 
+      # Additional fields
+      t.string :address
+      t.float :latitude
+      t.float :longitude
+      t.string :city
+      t.decimal :price
+
       t.timestamps
     end
   end

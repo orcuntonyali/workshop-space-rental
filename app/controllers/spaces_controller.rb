@@ -1,9 +1,10 @@
 class SpacesController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_space, only: [:show, :edit, :update]
+  before_action :check_lister, only: [:new, :create, :edit, :update]
 
   def index
-    @spaces = current_user&.lister? ? current_user.spaces : Space.all
+    @spaces = Space.all
 
     if params[:city].present?
       @spaces = @spaces.where(city: params[:city])
@@ -12,39 +13,10 @@ class SpacesController < ApplicationController
     if params[:availability].present?
       @spaces = @spaces.where(availability: true)
     end
-
-    respond_to do |format|
-      format.html
-      format.js { render partial: "spaces_list", locals: { spaces: @spaces } }
-    end
-  end
-
-  def new
-    @space = current_user.spaces.build
   end
 
   def show
     @space = Space.find(params[:id])
-  end
-
-  def create
-    @space = current_user.spaces.build(space_params)
-    if @space.save
-      redirect_to spaces_path, notice: 'Space was successfully created.'
-    else
-      render :new
-    end
-  end
-
-  def edit
-  end
-
-  def update
-    if @space.update(space_params)
-      redirect_to spaces_path, notice: 'Space was successfully updated.'
-    else
-      render :edit
-    end
   end
 
   private
@@ -56,12 +28,7 @@ class SpacesController < ApplicationController
     redirect_to root_path
   end
 
-  def space_params
-    params.require(:space).permit(:title, :description, :facilities, :equipment, :capacity, :availability, :price, images: [])
-  end
-
-  def search
-    @spaces = SpaceSearch.new(params).search
-    render :index
+  def check_lister
+    redirect_to root_path, alert: "Only listers can perform this action" unless current_user.lister?
   end
 end
