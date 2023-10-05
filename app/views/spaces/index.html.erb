@@ -36,7 +36,7 @@
   <% @spaces.each do |space| %>
     <%= link_to space_path(space) do %>
       <div class="card space-card hvr-grow">
-        <div class="my-3"> <%= cl_image_tag(pictures.sample, width: 350, height: 200, crop: :pad) %> </div>
+        <div class="my-3"> <%= cl_image_tag(pictures.sample, class: "card-image", width: 350, height: 200, crop: :pad) %> </div>
         <h2><%= space.title %></h2>
         <h3><%= space.availability ? "Available 😄" : "Unavailable 😭" %></h3>
         <h3>Capacity: <%= space.capacity %> p.</h3>
