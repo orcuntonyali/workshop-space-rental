@@ -108,7 +108,6 @@ reviewers = 25.times.map do
     role: 'booker'
   )
 end
-
 # Create bookings for spaces
 bookings = spaces.map do |space|
   reviewer = reviewers.sample
@@ -122,14 +121,15 @@ end
 bookings.each do |booking|
   rand(0..3).times do
     reviewer = reviewers.sample
+    puts reviewer
     next if Review.exists?(user: reviewer, space: booking.space)  # Skip if this user has already reviewed this space
 
     Review.create!(
-      rating: rand(3..5),
-      comment: Faker::Lorem.paragraph(sentence_count: 3),
-      user: reviewer,
-      space: booking.space,
-      booking: booking
+    rating: rand(3..5),
+    comment: Faker::Lorem.paragraph(sentence_count: 3),
+    user: reviewer,
+    space: booking.space,
+    booking: booking
     )
   end
 end

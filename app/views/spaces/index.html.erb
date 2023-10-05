@@ -1,5 +1,12 @@
 <div class="primary-banner">
-  <h1 class="mt-4 mb-4">Welcome to Workshop Rentals, <strong><%= current_user.username %> </strong></h1>
+  <h1 class="mt-4 mb-4">
+    <% if user_signed_in? %>
+    Welcome, to Workshop Rentals, <%= current_user.first_name %> 💛
+    <% else %>
+      Welcome to Workshop Rentals!
+    <% end %>
+  </h1>
+
 </div>
 
 <div class="filter-container">
@@ -9,7 +16,7 @@
         <%= label_tag :city, "City:" %>
         <%= text_field_tag :city, params[:city], id: "city-field" %>
       </div>
-      
+
       <div class="form-group">
         <%= label_tag :availability, "Available only:" %>
         <%= check_box_tag :availability, true, params[:availability] %>
@@ -37,4 +44,4 @@
       </div>
     <% end %>
   <% end %>
-</div>
+</div>db

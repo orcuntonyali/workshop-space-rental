@@ -6,12 +6,8 @@ class SpacesController < ApplicationController
   def index
     @spaces = Space.all
 
-    if params[:city].present?
-      @spaces = @spaces.where(city: params[:city])
-    end
-
-    if params[:availability].present?
-      @spaces = @spaces.where(availability: true)
+    if  params[:city]
+      @spaces = PgSearch.multisearch(params[:city]).map { |show| show.searchable}
     end
   end
 
@@ -23,12 +19,21 @@ class SpacesController < ApplicationController
 
   def set_space
     @space = Space.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    flash[:alert] = 'Space not found.'
-    redirect_to root_path
+    rescue ActiveRecord::RecordNotFound
+      flash[:alert] = 'Space not found.'
+      redirect_to root_path
   end
 
   def check_lister
     redirect_to root_path, alert: "Only listers can perform this action" unless current_user.lister?
+  end
+
+  def space_params
+    params.require(:space).permit(:title, :description, :facilities, :equipment, :capacity, :availability, :price, images: [])
+  end
+
+  def search
+    @spaces = SpaceSearch.new(params).search
+    render :index
   end
 end
