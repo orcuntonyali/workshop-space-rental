@@ -5,6 +5,9 @@ class Space < ApplicationRecord
 
   validate :user_must_be_lister
 
+  include PgSearch::Model
+  multisearchable against: [:city, :title]
+
   private
 
   def user_must_be_lister

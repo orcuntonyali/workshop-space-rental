@@ -97,6 +97,7 @@ spaces = 15.times.map do
     availability: [true, false].sample,
     user: lister,
     address: "#{Faker::Address.street_address}, #{city}",
+    city: city,
     latitude: Geocoder.search(city).first.latitude,
     longitude: Geocoder.search(city).first.longitude,
     price: rand(30..85)
