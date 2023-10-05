@@ -5,7 +5,6 @@ class SpacesController < ApplicationController
 
   def index
     @spaces = Space.all
-
     if  params[:city]
       @spaces = PgSearch.multisearch(params[:city]).map { |show| show.searchable}
     end

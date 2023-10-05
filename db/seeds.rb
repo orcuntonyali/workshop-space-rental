@@ -14,8 +14,8 @@ User.create!(
   email: "tonyaliorcun@gmail.com",
   password: '123456',
   username: "orcuntonyali",
-  first_name: "orcun",
-  last_name: "tonyali",
+  first_name: "Orcun",
+  last_name: "Tonyali",
   role: "booker"
 )
 
@@ -27,6 +27,8 @@ listers = 5.times.map do
     email: Faker::Internet.unique.email,
     password: '123456',
     username: Faker::Internet.unique.username,
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
     role: 'lister'
   )
 end
@@ -111,6 +113,8 @@ reviewers = 25.times.map do
     last_name: Faker::Name.last_name,
     email: Faker::Internet.unique.email,
     password: '123456',
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
     username: Faker::Internet.unique.username,
     role: 'booker'
   )

@@ -15,6 +15,7 @@ gem 'geocoder'
 gem 'carrierwave'
 # Cloudinary
 gem "cloudinary"
+# PG Search
 gem "pg_search"
 
 # Use Redis adapter to run Action Cable in production
