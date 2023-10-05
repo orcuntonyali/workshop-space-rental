@@ -4,9 +4,15 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
-    <%= f.input :username,
+    <%= f.input :first_name,
                 required: true,
                 autofocus: true %>
+    <%= f.input :last_name,
+                required: true,
+                autofocus: true %>
+     <%= f.input :username,
+                required: true,
+                autofocus: true %>                       
     <%= f.input :role,
                 collection: User.roles.keys,
                 prompt: 'Select your role' %>

@@ -29,6 +29,22 @@
   background-color: #2E1AAB;
 }
 
+.card-body-booking {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem;
+  margin: 1rem;
+  border: 0cap;
+  border-radius: 0.5rem;
+  max-width: 40%;
+  overflow: hidden;
+  white-space: normal;
+  color: #ffffff;
+  background-color: #2E1AAB;
+}
+
+
 a {
   color: inherit; /* remove the text-decoration property */
 }
