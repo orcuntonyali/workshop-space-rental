@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  validates :username, uniqueness: true
   enum role: { booker: 0, lister: 1 }
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
 
@@ -14,6 +13,10 @@ class User < ApplicationRecord
   def booker?
     role == "booker"
   end
+
+  validates :username, uniqueness: true
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 end
 
 # Include default devise modules. Others available are:
