@@ -14,12 +14,16 @@ User.create!(
   email: "tonyaliorcun@gmail.com",
   password: '123456',
   username: "orcuntonyali",
+  first_name: "orcun",
+  last_name: "tonyali",
   role: "booker"
 )
 
 # Create 5 listers
 listers = 5.times.map do
   User.create!(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
     email: Faker::Internet.unique.email,
     password: '123456',
     username: Faker::Internet.unique.username,
@@ -102,6 +106,8 @@ end
 # Create 100 reviewers
 reviewers = 25.times.map do
   User.create!(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
     email: Faker::Internet.unique.email,
     password: '123456',
     username: Faker::Internet.unique.username,
@@ -125,11 +131,11 @@ bookings.each do |booking|
     next if Review.exists?(user: reviewer, space: booking.space)  # Skip if this user has already reviewed this space
 
     Review.create!(
-    rating: rand(3..5),
-    comment: Faker::Lorem.paragraph(sentence_count: 3),
-    user: reviewer,
-    space: booking.space,
-    booking: booking
+      rating: rand(3..5),
+      comment: Faker::Lorem.paragraph(sentence_count: 3),
+      user: reviewer,
+      space: booking.space,
+      booking: booking
     )
   end
 end
