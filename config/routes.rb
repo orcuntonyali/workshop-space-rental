@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   root to: "spaces#index"
 
   resources :spaces, only: [:index, :show, :new, :create, :edit, :update, :destroy]
-  resources :bookings, only: [:index, :create, :edit, :update, :show, :destroy] do
+  resources :bookings, only: [:index, :show, :create, :edit, :update, :destroy] do
     resources :reviews, only: [:new, :create, :destroy]
   end
 end
