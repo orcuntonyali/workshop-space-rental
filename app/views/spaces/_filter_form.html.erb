@@ -1,0 +1,17 @@
+
+<%= simple_form_for :filters, url: spaces_path, method: :get, html: { class: 'form-inline' } do |f| %>
+
+  <div class="form-group">
+    <%= f.input :city_and_title, label: 'City or Title', input_html: { class: 'form-control', placeholder: 'Enter City or Title' } %>
+  </div>
+
+
+  <div class="form-group">
+    <%= f.input :selected_date, as: :date, html5: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit 'Search', class: 'btn btn-primary' %>
+  </div>
+
+<% end %>
