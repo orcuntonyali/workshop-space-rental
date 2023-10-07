@@ -11,21 +11,7 @@
 
 <div class="filter-container">
   <div class="filter-banner py-3 my-4">
-    <%= form_tag(spaces_path, method: :get) do %>
-      <div class="form-group">
-        <%= label_tag :city, "City:" %>
-        <%= text_field_tag :city, params[:city], id: "city-field" %>
-      </div>
-
-      <div class="form-group">
-        <%= label_tag :availability, "Available only:" %>
-        <%= check_box_tag :availability, true, params[:availability] %>
-      </div>
-
-      <div class="form-group">
-        <%= submit_tag "SEARCH" %>
-      </div>
-    <% end %>
+    <%= render 'spaces/filter_form' %>
   </div>
 </div>
 
