@@ -5,17 +5,15 @@ class SpacesController < ApplicationController
 
   def index
     @spaces = Space.all
-
-    if params[:query].present?
-      @spaces = search(params[:query])
-    end
+    @spaces = search(params[:query]) if params[:query].present?
 
     if params[:select_date].present?
       @spaces = @spaces.select { |space| space.available?(Date.parse(params[:select_date])) }
     end
 
     if request.xhr?
-      render partial: "spaces_list", locals: { spaces: @spaces }
+      photos = ["https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419179/Workshop/1.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419179/Workshop/2.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696597444/23_jzhrkd.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419178/Workshop/4.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419178/Workshop/5.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419174/Workshop/17.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419173/Workshop/19.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419176/Workshop/10.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419175/Workshop/12.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419175/Workshop/14.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419175/Workshop/15.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696597443/21_lwm8h9.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696597442/20_mnubg8.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696597443/22_bghtuh.avif"]
+      render partial: "spaces_list", locals: { spaces: @spaces, photos: photos }
     else
       respond_to do |format|
         format.html

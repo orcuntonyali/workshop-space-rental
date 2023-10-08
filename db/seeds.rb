@@ -38,20 +38,7 @@ cities = [
   'Cologne',
   'Frankfurt',
   'Stuttgart',
-  'Düsseldorf',
-  'Dortmund',
-  'Essen',
-  'Leipzig',
-  'Bremen',
-  'Dresden',
-  'Hannover',
-  'Nuremberg',
-  'Duisburg',
-  'Bochum',
-  'Wuppertal',
-  'Bielefeld',
-  'Bonn',
-  'Münster'
+  'Düsseldorf'
 ]
 # Facilities
 facilities = [
@@ -86,13 +73,13 @@ spaces = 15.times.map do
   city = cities.sample
   lister = listers.sample
 
-  # Generate 70% available dates for the next year
+  # Generate 50% available dates for the next year
   total_days = 100
   available_dates = []
   start_date = DateTime.now
 
   (start_date..start_date + total_days.days).each do |date|
-    if rand < 0.5 # 70% chance of being available
+    if rand < 0.5 # 50% chance of being available
       formatted_date = date.strftime("%Y-%m-%d")
       available_dates << formatted_date
     end

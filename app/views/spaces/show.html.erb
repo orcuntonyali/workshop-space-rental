@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-md-6">
   </div>
-  <div class="card space-card col-md-6">
+  <div class="card card-body col-md-6">
     <h1><%= @space.title %></h1>
     <h2>Capacity: <%= @space.capacity %> p</h2>
     <p><strong>Listed by:</strong> <%= @space.user.username %></p>
@@ -33,7 +33,7 @@
     <h2>Reviews</h2>
     <% if @space.reviews.any? %>
       <% @space.reviews.each do |review| %>
-        <div class="card mb-3">
+        <div class="mb-3">
           <div class="card-body">
             <h5 class="card-title">Rating: <%= review.rating %></h5>
             <p class="card-text"><%= review.comment %></p>
