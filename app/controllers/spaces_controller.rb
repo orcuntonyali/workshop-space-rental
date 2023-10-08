@@ -3,29 +3,24 @@ class SpacesController < ApplicationController
   before_action :set_space, only: [:show, :edit, :update]
   before_action :check_lister, only: [:new, :create, :edit, :update]
 
-  # def index
-    # @spaces = Space.all
-    # if  params[:city]
-     # @spaces = PgSearch.multisearch(params[:city]).map { |show| show.searchable}
-    # end
-  # end
-
   def index
     @spaces = Space.all
-
-    if params[:city].present? || params[:title].present?
-      search_query = "#{params[:city]} #{params[:title]}".strip
-      search_results = PgSearch.multisearch(search_query)
-      space_ids = search_results.select { |result| result.searchable_type == 'Space' }.map{ |show| show.searchable}
-      # @spaces = @spaces.where(id: space_ids)
-    end
+    @spaces = search(params[:query]) if params[:query].present?
 
     if params[:select_date].present?
-      # Assuming you have a "date" attribute in your Space model
-      @spaces = @spaces.where(date: params[:select_date], availability: true)
+      @spaces = @spaces.select { |space| space.available?(Date.parse(params[:select_date])) }
+    end
+
+    if request.xhr?
+      photos = ["https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419179/Workshop/1.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419179/Workshop/2.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696597444/23_jzhrkd.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419178/Workshop/4.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419178/Workshop/5.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419174/Workshop/17.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419173/Workshop/19.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419176/Workshop/10.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419175/Workshop/12.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419175/Workshop/14.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419175/Workshop/15.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696597443/21_lwm8h9.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696597442/20_mnubg8.avif", "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696597443/22_bghtuh.avif"]
+      render partial: "spaces_list", locals: { spaces: @spaces, photos: photos }
+    else
+      respond_to do |format|
+        format.html
+        format.js { render partial: "spaces_list", locals: { spaces: @spaces } }
+      end
     end
   end
-
 
   def show
     @space = Space.find(params[:id])
@@ -48,8 +43,7 @@ class SpacesController < ApplicationController
     params.require(:space).permit(:title, :description, :facilities, :equipment, :capacity, :availability, :price, images: [])
   end
 
-  def search
-    @spaces = SpaceSearch.new(params).search
-    render :index
+  def search(query)
+    Space.search_by_city_and_title(query)
   end
 end

@@ -1,5 +1,4 @@
 # This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 
 # Clear previous seeds
 Space.destroy_all
@@ -39,22 +38,8 @@ cities = [
   'Cologne',
   'Frankfurt',
   'Stuttgart',
-  'Düsseldorf',
-  'Dortmund',
-  'Essen',
-  'Leipzig',
-  'Bremen',
-  'Dresden',
-  'Hannover',
-  'Nuremberg',
-  'Duisburg',
-  'Bochum',
-  'Wuppertal',
-  'Bielefeld',
-  'Bonn',
-  'Münster'
+  'Düsseldorf'
 ]
-
 # Facilities
 facilities = [
   'Wi-Fi',
@@ -69,7 +54,6 @@ facilities = [
   'Kitchen',
   'Parking'
 ]
-
 # Equipment
 equipment = [
   'Laptop',
@@ -88,19 +72,32 @@ equipment = [
 spaces = 15.times.map do
   city = cities.sample
   lister = listers.sample
+
+  # Generate 50% available dates for the next year
+  total_days = 100
+  available_dates = []
+  start_date = DateTime.now
+
+  (start_date..start_date + total_days.days).each do |date|
+    if rand < 0.5 # 50% chance of being available
+      formatted_date = date.strftime("%Y-%m-%d")
+      available_dates << formatted_date
+    end
+  end
+
   Space.create!(
-    title: "#{Faker::Educator.subject} Study Space",
+    title: "#{Faker::Educator.subject} Space",
     description: Faker::Lorem.paragraph(sentence_count: 3),
     facilities: facilities.sample(rand(1..5)).join(', '),
     equipment: equipment.sample(rand(1..5)).join(', '),
     capacity: rand(1..20),
-    availability: [true, false].sample,
+    available_dates: available_dates,
     user: lister,
     address: "#{Faker::Address.street_address}, #{city}",
     city: city,
     latitude: Geocoder.search(city).first.latitude,
     longitude: Geocoder.search(city).first.longitude,
-    price: rand(30..85)
+    price: rand(15..68)
   )
 end
 

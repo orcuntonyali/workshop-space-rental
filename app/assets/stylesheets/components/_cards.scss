@@ -5,26 +5,26 @@
   align-items: flex-start;
   padding: 1rem;
   margin: 1rem;
-  border: 0cap;
   border-radius: 0.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  max-width: 100%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  max-width: 370px;
+  height: 460px;
   overflow: hidden;
   white-space: normal;
   color: rgb(255, 255, 255);
-  background-color: #2E1AAB;
+  background: linear-gradient(to bottom right, #2E1AAB, #6A41D8);
+  transition: all 0.3s ease-in-out;
+}
+
+.space-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 12px 40px 0 rgba(0, 0, 0, 0.19);
 }
 
 .space-card img {
-  object-fit: cover; /* This property prevents stretching */
-  width: 100%; /* Ensures the image fills the container */
-  height: 100%; /* Ensures the image fills the container */
-}
-
-.card-image {
+  object-fit: cover;
   width: 100%;
   height: 100%;
-  object-fit: cover;
 }
 
 .card-body {
@@ -39,7 +39,7 @@
   overflow: hidden;
   white-space: normal;
   color: #ffffff;
-  background-color: #2E1AAB;
+  background-color: #FC8C0B;
 }
 
 .card-body-booking {
@@ -56,24 +56,20 @@
   color: #ffffff;
   background-color: #2E1AAB;
 }
-
-
 a {
   color: inherit; /* remove the text-decoration property */
 }
-
 .hvr-grow {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
   -webkit-transition-duration: 0.3s;
-  box-shadow: 2px 2px 2px rgb(83, 83, 83);
+  // box-shadow: 2px 2px 2px rgb(83, 83, 83);
   transition-duration: 0.3s;
   -webkit-transition-property: transform;
   transition-property: transform;
 }
-
 .hvr-grow:hover,
 .hvr-grow:focus,
 .hvr-grow:active {

@@ -1,0 +1,16 @@
+<div class="container py-3 container--grid">
+  <% spaces.each do |space| %>
+    <%= link_to space_path(space) do %>
+      <div class="space-card hvr-grow">
+        <div class="my-3">
+          <%= cl_image_tag(photos.sample, class: "card-image", width: 350, height: 200, crop: :pad) %>
+        </div>
+        <h2><%= space.title %></h2>
+        <p>About<%= space.description %></p>
+        <p>Location: <%= space.city %></p>
+        <p>Capacity: <%= space.capacity %></p>
+        <p>Price:<%= space.price %></p>
+      </div>
+    <% end %>
+  <% end %>
+</div>
