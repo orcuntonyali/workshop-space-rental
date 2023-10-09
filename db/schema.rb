@@ -33,6 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_07_174054) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable"
+    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -60,7 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_07_174054) do
     t.float "longitude"
     t.string "city"
     t.decimal "price"
-    t.text "available_dates"
+    t.text "available_dates", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_spaces_on_user_id"

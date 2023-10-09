@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_booker, only: [:new, :create]
+  before_action :check_booker, only: %i[new create]
 
   private
 

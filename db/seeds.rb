@@ -1,14 +1,17 @@
 # This file should contain all the record creation needed to seed the database with its default values.
-
+require 'pry-byebug'
 # Clear previous seeds
-Space.destroy_all
-User.destroy_all
+puts "Cleaning Records..."
+Space.delete_all
+User.delete_all
 
 # Reset primary key sequence
+puts "Resetting primary key sequence..."
 ActiveRecord::Base.connection.reset_pk_sequence!('spaces')
 ActiveRecord::Base.connection.reset_pk_sequence!('users')
 
 # Create master user
+puts "Creating master user..."
 User.create!(
   email: "tonyaliorcun@gmail.com",
   password: '123456',
@@ -19,6 +22,7 @@ User.create!(
 )
 
 # Create 5 listers
+puts "Creating listers..."
 listers = 5.times.map do
   User.create!(
     first_name: Faker::Name.first_name,
@@ -69,22 +73,23 @@ equipment = [
 ]
 
 # Create 15 spaces
+puts "Creating spaces..."
 spaces = 15.times.map do
   city = cities.sample
   lister = listers.sample
 
-  # Generate 50% available dates for the next year
-  total_days = 100
+#   # Generate 50% available dates for the next year
+puts "Generating available dates..."
   available_dates = []
-  start_date = DateTime.now
+  date = DateTime.now
 
-  (start_date..start_date + total_days.days).each do |date|
-    if rand < 0.5 # 50% chance of being available
-      formatted_date = date.strftime("%Y-%m-%d")
-      available_dates << formatted_date
-    end
+  100.times do
+     # 50% chance of being available
+    available_dates << date.strftime("%Y-%m-%d") if rand < 0.3
+    date += 1
   end
 
+  puts "Creating space..."
   Space.create!(
     title: "#{Faker::Educator.subject} Space",
     description: Faker::Lorem.paragraph(sentence_count: 3),
@@ -101,6 +106,7 @@ spaces = 15.times.map do
   )
 end
 
+puts "Creating bookings..."
 # Create 100 reviewers
 reviewers = 25.times.map do
   User.create!(
@@ -112,15 +118,16 @@ reviewers = 25.times.map do
     role: 'booker'
   )
 end
+puts "Creating bookings..."
 # Create bookings for spaces
-bookings = spaces.map do |space|
+bookings = Space.all.map do |space|
   reviewer = reviewers.sample
   Booking.create!(
     user: reviewer,
-    space: space
+    space: 
   )
 end
-
+puts "Creating reviews..."
 # Create reviews for bookings
 bookings.each do |booking|
   rand(0..3).times do
