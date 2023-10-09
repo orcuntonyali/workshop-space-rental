@@ -13,7 +13,7 @@ class BookingsController < ApplicationController
     @booking = current_user.bookings.new(space_id: params[:space_id])
     @space = Space.find(params[:space_id])
     if @booking.save
-      @space.update(availability: false)
+      @space.update(available_dates: params[:selected])
       redirect_to bookings_path, notice: 'Booking was successfully created.'
     else
       redirect_to root_path, alert: "Something went wrong. Please try again!"

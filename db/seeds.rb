@@ -74,23 +74,39 @@ equipment = [
 
 # Create 15 spaces
 puts "Creating spaces..."
-spaces = 15.times.map do
+photos = ["https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419179/Workshop/1.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419179/Workshop/2.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696597444/23_jzhrkd.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419178/Workshop/4.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419178/Workshop/5.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419174/Workshop/17.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419173/Workshop/19.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419176/Workshop/10.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419175/Workshop/12.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419175/Workshop/14.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419175/Workshop/15.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696597443/21_lwm8h9.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696597442/20_mnubg8.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696597443/22_bghtuh.avif"]
+spaces = photos.each_with_index do |photo, index|
   city = cities.sample
   lister = listers.sample
 
 #   # Generate 50% available dates for the next year
-puts "Generating available dates..."
+  puts "Generating available dates..."
   available_dates = []
   date = DateTime.now
 
   100.times do
-     # 50% chance of being available
+    # 50% chance of being available
     available_dates << date.strftime("%Y-%m-%d") if rand < 0.3
     date += 1
   end
 
   puts "Creating space..."
-  Space.create!(
+  file = URI.open(photo)
+
+  space = Space.new(
     title: "#{Faker::Educator.subject} Space",
     description: Faker::Lorem.paragraph(sentence_count: 3),
     facilities: facilities.sample(rand(1..5)).join(', '),
@@ -104,7 +120,12 @@ puts "Generating available dates..."
     longitude: Geocoder.search(city).first.longitude,
     price: rand(15..68)
   )
+  space.photo.attach(io: file, filename: "#{index}.png", content_type: "image/png")
+  space.save
 end
+
+
+
 
 puts "Creating bookings..."
 # Create 100 reviewers
@@ -124,7 +145,7 @@ bookings = Space.all.map do |space|
   reviewer = reviewers.sample
   Booking.create!(
     user: reviewer,
-    space: 
+    space:
   )
 end
 puts "Creating reviews..."

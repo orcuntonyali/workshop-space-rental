@@ -20,7 +20,11 @@
       <% elsif user_signed_in? && current_user.booker? %>
         <%= form_with url: bookings_path, method: :post do %>
           <%= hidden_field_tag :space_id, @space.id %>
-          <%= submit_tag "Book Now", class: "btn btn-light" %>
+          <%= hidden_field_tag :selected,  @selected_date %>
+          <% unless Booking.find_by(user: current_user) %>
+            <%= submit_tag "Book Now", class: "btn btn-light" %>
+          <% end %>
+
         <% end %>
       <% end %>
     </div>
