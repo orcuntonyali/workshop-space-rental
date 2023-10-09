@@ -7,8 +7,8 @@ class Space < ApplicationRecord
 
   validate :user_must_be_lister
 
-  pg_search_scope :search_by_city_and_title, against: [:city, :title],
-    using: { tsearch: { prefix: true } }
+  pg_search_scope :search_by_city_and_title, against: %i[city title],
+                                             using: { tsearch: { prefix: true } }
 
   # serialize :available_dates, Array
 

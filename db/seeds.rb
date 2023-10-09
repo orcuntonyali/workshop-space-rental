@@ -89,8 +89,7 @@ puts "Generating available dates..."
     date += 1
   end
 
-puts "Creating space..."
-binding.pry
+  puts "Creating space..."
   Space.create!(
     title: "#{Faker::Educator.subject} Space",
     description: Faker::Lorem.paragraph(sentence_count: 3),
@@ -121,11 +120,11 @@ reviewers = 25.times.map do
 end
 puts "Creating bookings..."
 # Create bookings for spaces
-bookings = spaces.map do |space|
+bookings = Space.all.map do |space|
   reviewer = reviewers.sample
   Booking.create!(
     user: reviewer,
-    space: space
+    space: 
   )
 end
 puts "Creating reviews..."
