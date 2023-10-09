@@ -8,7 +8,7 @@
   border-radius: 0.5rem;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   max-width: 370px;
-  height: 460px;
+  height: 520px;
   overflow: hidden;
   white-space: normal;
   color: rgb(255, 255, 255);
@@ -28,6 +28,35 @@
 }
 
 .card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem;
+  margin: 1rem;
+  border: 0cap;
+  border-radius: 0.5rem;
+  max-width: 60%;
+  overflow: hidden;
+  white-space: normal;
+  color: #ffffff;
+  background-color: #2E1AAB;
+}
+
+.card-review{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem;
+  border: solid #FC8C0B;
+  border-radius: 0.5rem;
+  max-width: 98%;
+  overflow: hidden;
+  white-space: normal;
+  color: #000000;
+  background-color: white;
+}
+
+.card-price{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
