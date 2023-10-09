@@ -15,6 +15,7 @@ class SpacesController < ApplicationController
 
   def show
     @space = Space.find(params[:id])
+    @selected_date = params[:selected]
   end
 
   private
@@ -43,21 +44,7 @@ class SpacesController < ApplicationController
   # Ignoring metric length due to length of photos...
   def setting_image
     if request.xhr?
-      photos = ["https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419179/Workshop/1.avif",
-                "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419179/Workshop/2.avif",
-                "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696597444/23_jzhrkd.avif",
-                "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419178/Workshop/4.avif",
-                "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419178/Workshop/5.avif",
-                "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419174/Workshop/17.avif",
-                "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419173/Workshop/19.avif",
-                "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419176/Workshop/10.avif",
-                "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419175/Workshop/12.avif",
-                "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419175/Workshop/14.avif",
-                "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419175/Workshop/15.avif",
-                "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696597443/21_lwm8h9.avif",
-                "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696597442/20_mnubg8.avif",
-                "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696597443/22_bghtuh.avif"]
-      render partial: "spaces_list", locals: { spaces: @spaces, photos: }
+      render partial: "spaces_list", locals: { spaces: @spaces }
     else
       respond_to do |format|
         format.html

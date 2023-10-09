@@ -74,7 +74,21 @@ equipment = [
 
 # Create 15 spaces
 puts "Creating spaces..."
-spaces = 15.times.map do
+photos = ["https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419179/Workshop/1.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419179/Workshop/2.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696597444/23_jzhrkd.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419178/Workshop/4.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419178/Workshop/5.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419174/Workshop/17.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419173/Workshop/19.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419176/Workshop/10.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419175/Workshop/12.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419175/Workshop/14.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696419175/Workshop/15.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696597443/21_lwm8h9.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696597442/20_mnubg8.avif",
+  "https://res.cloudinary.com/dw4vy98yd/image/upload/v1696597443/22_bghtuh.avif"]
+spaces = photos.each_with_index do |photo, index|
   city = cities.sample
   lister = listers.sample
 
@@ -90,7 +104,9 @@ spaces = 15.times.map do
   end
 
   puts "Creating space..."
-  Space.new(
+  file = URI.open(photo)
+
+  space = Space.new(
     title: "#{Faker::Educator.subject} Space",
     description: Faker::Lorem.paragraph(sentence_count: 3),
     facilities: facilities.sample(rand(1..5)).join(', '),
@@ -104,9 +120,12 @@ spaces = 15.times.map do
     longitude: Geocoder.search(city).first.longitude,
     price: rand(15..68)
   )
-  space.attach
-  space.save!
+  space.photo.attach(io: file, filename: "#{index}.png", content_type: "image/png")
+  space.save
 end
+
+
+
 
 puts "Creating bookings..."
 # Create 100 reviewers
