@@ -79,18 +79,18 @@ spaces = 15.times.map do
   lister = listers.sample
 
 #   # Generate 50% available dates for the next year
-puts "Generating available dates..."
+  puts "Generating available dates..."
   available_dates = []
   date = DateTime.now
 
   100.times do
-     # 50% chance of being available
+    # 50% chance of being available
     available_dates << date.strftime("%Y-%m-%d") if rand < 0.3
     date += 1
   end
 
   puts "Creating space..."
-  Space.create!(
+  Space.new(
     title: "#{Faker::Educator.subject} Space",
     description: Faker::Lorem.paragraph(sentence_count: 3),
     facilities: facilities.sample(rand(1..5)).join(', '),
@@ -104,6 +104,8 @@ puts "Generating available dates..."
     longitude: Geocoder.search(city).first.longitude,
     price: rand(15..68)
   )
+  space.attach
+  space.save!
 end
 
 puts "Creating bookings..."
@@ -124,7 +126,7 @@ bookings = Space.all.map do |space|
   reviewer = reviewers.sample
   Booking.create!(
     user: reviewer,
-    space: 
+    space:
   )
 end
 puts "Creating reviews..."
