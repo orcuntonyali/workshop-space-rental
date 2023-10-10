@@ -1,6 +1,8 @@
-<div class="row">
-  <div class="card-body col-lg-6">
-    <div>
+<!-- Top main div -->
+<div class="row main-div">
+  <!-- Sub div for space info -->
+  <div class="col-md-6 space-info">
+    <div class="card card-body">
       <h1><%= @space.title %></h1>
       <h2>Capacity: <%= @space.capacity %> p</h2>
       <p><strong>Listed by:</strong> <%= @space.user.username %></p>
@@ -8,15 +10,15 @@
       <p><strong>Facilities:</strong> <%= @space.facilities %></p>
       <p><strong>Equipment:</strong> <%= @space.equipment %></p>
       <p><strong>Address:</strong> <%= @space.address %></p>
-    </div>
-    <div class="col-lg-6">
+      <div class="col-lg-6">
      <%= cl_image_tag(@space.photo.key, width: 350, height: 200, crop: :pad) %>
+      </div>
     </div>
   </div>
     <div class="col-md-4">
     <div class="card-price">
       <h2 class="card-title">Price:</h3>
-      <h3 class="card-text"><%= number_to_currency(@space.price) %> per hour</h3>
+      <p class="card-text"><%= number_to_currency(@space.price) %> per hour</p>
       <% if user_signed_in? && current_user.lister? && current_user == @space.user %>
         <%= link_to "Edit Space", edit_space_path(@space), class: "btn btn-primary" %>
       <% elsif user_signed_in? && current_user.booker? %>
@@ -26,7 +28,6 @@
           <% unless Booking.find_by(user: current_user) %>
             <%= submit_tag "Book Now", class: "btn btn-light" %>
           <% end %>
-
         <% end %>
       <% end %>
     </div>
@@ -36,7 +37,7 @@
 
 <%# Display reviews %>
 <div class="row mt-5">
-  <div class="col-md-12 mx-4">
+  <div class="col-md-12 mx-3">
     <h2>Reviews</h2>
     <% if @space.reviews.any? %>
       <% @space.reviews.each do |review| %>
