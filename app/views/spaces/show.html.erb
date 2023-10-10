@@ -1,20 +1,21 @@
-<div class="row">
-  <div class="col-md-6">
-  </div>
-  <div class="card card-body col-md-6">
-    <h1><%= @space.title %></h1>
-    <h2>Capacity: <%= @space.capacity %> p</h2>
-    <p><strong>Listed by:</strong> <%= @space.user.username %></p>
-    <p><strong>Description:</strong> <%= @space.description %></p>
-    <p><strong>Facilities:</strong> <%= @space.facilities %></p>
-    <p><strong>Equipment:</strong> <%= @space.equipment %></p>
-    <p><strong>Address:</strong> <%= @space.address %></p>
+<!-- Top main div -->
+<div class="row main-div">
+  <!-- Sub div for space info -->
+  <div class="col-md-6 space-info">
+    <div class="card card-body">
+      <h1><%= @space.title %></h1>
+      <h2>Capacity: <%= @space.capacity %> p</h2>
+      <p><strong>Listed by:</strong> <%= @space.user.username %></p>
+      <p><strong>Description:</strong> <%= @space.description %></p>
+      <p><strong>Facilities:</strong> <%= @space.facilities %></p>
+      <p><strong>Equipment:</strong> <%= @space.equipment %></p>
+      <p><strong>Address:</strong> <%= @space.address %></p>
     </div>
   </div>
-  <div class="col-md-4">
+  <!-- Sub div for price and book now -->
+  <div class="col-md-6 price-info">
     <div class="card-body">
-      <h3 class="card-title">Price</h3>
-      <p class="card-text"><%= number_to_currency(@space.price) %> per hour</p>
+      <h3 class="card-title">Price: <%= number_to_currency(@space.price, unit: "", precision: 0, format: "%n %u") %> EUR/hour</h3>
       <% if user_signed_in? && current_user.lister? && current_user == @space.user %>
         <%= link_to "Edit Space", edit_space_path(@space), class: "btn btn-primary" %>
       <% elsif user_signed_in? && current_user.booker? %>
@@ -24,16 +25,15 @@
           <% unless Booking.find_by(user: current_user) %>
             <%= submit_tag "Book Now", class: "btn btn-light" %>
           <% end %>
-
         <% end %>
       <% end %>
     </div>
   </div>
 </div>
 
-<%# Display reviews %>
-<div class="row mt-5">
-  <div class="col-md-12">
+<!-- Below main div for reviews -->
+<div class="row main-div">
+  <div class="col-md-12 reviews">
     <h2>Reviews</h2>
     <% if @space.reviews.any? %>
       <% @space.reviews.each do |review| %>
