@@ -1,21 +1,21 @@
-<h1>My Bookings</h1>
+<div class="mx-3 my-2">
+  <h1>My Bookings</h1>
 
-<p>You have <%= @bookings.count %> bookings.</p>
+  <p>You have <%= @bookings.count %> bookings.</p>
 
-<% @bookings.each do |booking| %>
-  <div class="mb-3">
-    <div class="card-body">
-      <h5 class="card-title">
-        <%= link_to booking.space.title, space_path(booking.space) %>
-      </h5>
-      <div class="actions">
-        <% if booking.reviews.nil? %>
-          <%= link_to "Leave a Review", new_booking_review_path(booking), class: "btn btn-primary" %>
-        <% end %>
-        <%= link_to "Edit", edit_booking_path(booking), class: "btn btn-secondary" %>
-        <%= link_to "Delete", booking_path(booking), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+  <% @bookings.each do |booking| %>
+    <div class="mb-3">
+      <div class="card-booking">
+        <h5 class="card-title">
+          <%= link_to booking.space.title, space_path(booking.space) %>
+        </h5>
+        <div class="actions">
+          <% if booking.reviews.nil? %>
+            <%= link_to "Leave a Review", new_booking_review_path(booking), class: "btn btn-primary" %>
+          <% end %>
+          <%= link_to "Cancel booking", booking_path(booking), method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
+        </div>
       </div>
     </div>
-  </div>
-<% end %>
-
+  <% end %>
+</div>
