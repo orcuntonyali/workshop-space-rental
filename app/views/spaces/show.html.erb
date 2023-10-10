@@ -16,7 +16,7 @@
     <div class="col-md-4">
     <div class="card-price">
       <h2 class="card-title">Price:</h3>
-      <p class="card-text"><%= number_to_currency(@space.price) %> per hour</p>
+      <h3 class="card-text"><%= number_to_currency(@space.price) %> per hour</h3>
       <% if user_signed_in? && current_user.lister? && current_user == @space.user %>
         <%= link_to "Edit Space", edit_space_path(@space), class: "btn btn-primary" %>
       <% elsif user_signed_in? && current_user.booker? %>
@@ -30,13 +30,13 @@
         <% end %>
       <% end %>
     </div>
-  </div>
+    </div>
   </div>
 </div>
 
 <%# Display reviews %>
 <div class="row mt-5">
-  <div class="col-md-12 mx-3">
+  <div class="col-md-12 mx-4">
     <h2>Reviews</h2>
     <% if @space.reviews.any? %>
       <% @space.reviews.each do |review| %>

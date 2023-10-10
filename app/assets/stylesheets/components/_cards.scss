@@ -39,7 +39,8 @@
   overflow: hidden;
   white-space: normal;
   color: #ffffff;
-  background-color: #2E1AAB;
+  background: linear-gradient(to bottom right, #2E1AAB, #6A41D8);
+  transition: all 0.3s ease-in-out;
 }
 
 .card-review{
@@ -62,13 +63,14 @@
   align-items: flex-start;
   padding: 1rem;
   margin: 1rem;
-  border: 0cap;
   border-radius: 0.5rem;
-  max-width: 60%;
+  width: 200px;
+  height: 200px;
   overflow: hidden;
   white-space: normal;
   color: #ffffff;
   background-color: #FC8C0B;
+  text-align: center;
 }
 
 .card-body-booking {
