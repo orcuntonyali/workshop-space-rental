@@ -1,20 +1,23 @@
-<!-- Top main div -->
-<div class="row main-div">
-  <!-- Sub div for space info -->
-  <div class="col-md-6 space-info">
-    <div class="card-body">
-      <h1><%= @space.title %></h1>
-      <h2>Capacity: <%= @space.capacity %> p</h2>
-      <p><strong>Listed by:</strong> <%= @space.user.username %></p>
-      <p><strong>Description:</strong> <%= @space.description %></p>
-      <p><strong>Facilities:</strong> <%= @space.facilities %></p>
-      <p><strong>Equipment:</strong> <%= @space.equipment %></p>
-      <p><strong>Address:</strong> <%= @space.address %></p>
-      <div class="col-lg-6">
-      <%= cl_image_tag(@space.photo.key, width: 350, height: 200, crop: :pad) %>
+<div class="row px-3">
+<div class="card-body col-lg-6">
+  <div class="row">
+    <div class="col-lg-7">
+      <div>
+        <h1><%= @space.title %></h1>
+        <h2>Capacity: <%= @space.capacity %> p</h2>
+        <p><strong>Listed by:</strong> <%= @space.user.username %></p>
+        <p><strong>Description:</strong> <%= @space.description %></p>
+        <p><strong>Facilities:</strong> <%= @space.facilities %></p>
+        <p><strong>Equipment:</strong> <%= @space.equipment %></p>
+        <p><strong>Address:</strong> <%= @space.address %></p>
       </div>
     </div>
+    <div class="col-lg-5">
+      <%= cl_image_tag(@space.photo.key, width: 350, height: 350, crop: :pad) %>
+    </div>
   </div>
+</div>
+
     <div class="col-md-5">
       <div class="card-price">
         <h2 class="card-title">Price:</h3>
