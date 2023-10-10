@@ -1,5 +1,5 @@
 .space-card {
-  flex: 1;
+  flex: 0 0 calc(33.33% - 2rem); /* Default to 3-column layout */
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -16,10 +16,25 @@
   transition: all 0.3s ease-in-out;
 }
 
+/* 2-column layout for medium screens */
+@media (max-width: 1024px) {
+  .space-card {
+    flex: 0 0 calc(50% - 2rem);
+  }
+}
+
+/* 1-column layout for small screens */
+@media (max-width: 768px) {
+  .space-card {
+    flex: 0 0 calc(100% - 2rem);
+  }
+}
+
 .space-card:hover {
   transform: scale(1.05);
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 12px 40px 0 rgba(0, 0, 0, 0.19);
 }
+
 
 .space-card img {
   object-fit: cover;
@@ -71,6 +86,28 @@
   background-color: #FC8C0B;
 }
 
+.description {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.main-div {
+  margin: 0 auto;
+  width: 80%; /* You can adjust this value */
+}
+
+/* Style the space info and price info */
+.space-info, .price-info {
+  padding: 1rem;
+}
+
+/* Style the reviews */
+.reviews {
+  padding: 1rem;
+}
+
 .card-body-booking {
   display: flex;
   flex-direction: column;
@@ -85,9 +122,11 @@
   color: #ffffff;
   background-color: #2E1AAB;
 }
+
 a {
   color: inherit; /* remove the text-decoration property */
 }
+
 .hvr-grow {
   display: inline-block;
   vertical-align: middle;
