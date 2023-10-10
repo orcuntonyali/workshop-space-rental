@@ -2,7 +2,7 @@
 <div class="row main-div">
   <!-- Sub div for space info -->
   <div class="col-md-6 space-info">
-    <div class="card card-body">
+    <div class="card-body">
       <h1><%= @space.title %></h1>
       <h2>Capacity: <%= @space.capacity %> p</h2>
       <p><strong>Listed by:</strong> <%= @space.user.username %></p>
@@ -11,25 +11,25 @@
       <p><strong>Equipment:</strong> <%= @space.equipment %></p>
       <p><strong>Address:</strong> <%= @space.address %></p>
       <div class="col-lg-6">
-     <%= cl_image_tag(@space.photo.key, width: 350, height: 200, crop: :pad) %>
+      <%= cl_image_tag(@space.photo.key, width: 350, height: 200, crop: :pad) %>
       </div>
     </div>
   </div>
-    <div class="col-md-4">
-    <div class="card-price">
-      <h2 class="card-title">Price:</h3>
-      <p class="card-text"><%= number_to_currency(@space.price) %> per hour</p>
-      <% if user_signed_in? && current_user.lister? && current_user == @space.user %>
-        <%= link_to "Edit Space", edit_space_path(@space), class: "btn btn-primary" %>
-      <% elsif user_signed_in? && current_user.booker? %>
-        <%= form_with url: bookings_path, method: :post do %>
-          <%= hidden_field_tag :space_id, @space.id %>
-          <%= hidden_field_tag :selected,  @selected_date %>
-          <% unless Booking.find_by(user: current_user) %>
-            <%= submit_tag "Book Now", class: "btn btn-light" %>
+    <div class="col-md-5">
+      <div class="card-price">
+        <h2 class="card-title">Price:</h3>
+        <p class="card-text"><%= number_to_currency(@space.price) %> per hour</p>
+        <% if user_signed_in? && current_user.lister? && current_user == @space.user %>
+          <%= link_to "Edit Space", edit_space_path(@space), class: "btn btn-primary" %>
+        <% elsif user_signed_in? && current_user.booker? %>
+          <%= form_with url: bookings_path, method: :post do %>
+            <%= hidden_field_tag :space_id, @space.id %>
+            <%= hidden_field_tag :selected,  @selected_date %>
+            <% unless Booking.find_by(user: current_user) %>
+              <%= submit_tag "Book Now", class: "btn btn-light" %>
+            <% end %>
           <% end %>
         <% end %>
-      <% end %>
     </div>
     </div>
   </div>
