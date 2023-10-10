@@ -10,6 +10,9 @@
       <p><strong>Facilities:</strong> <%= @space.facilities %></p>
       <p><strong>Equipment:</strong> <%= @space.equipment %></p>
       <p><strong>Address:</strong> <%= @space.address %></p>
+      <div class="col-lg-6">
+     <%= cl_image_tag(@space.photo.key, width: 350, height: 200, crop: :pad) %>
+      </div>
     </div>
   </div>
   <!-- Sub div for price and book now -->
@@ -29,20 +32,20 @@
       <% end %>
     </div>
   </div>
+  </div>
 </div>
 
+<%# Display reviews %>
 <!-- Below main div for reviews -->
 <div class="row main-div">
   <div class="col-md-12 reviews">
     <h2>Reviews</h2>
     <% if @space.reviews.any? %>
       <% @space.reviews.each do |review| %>
-        <div class="mb-3">
-          <div class="card-body">
-            <h5 class="card-title">Rating: <%= review.rating %></h5>
-            <p class="card-text"><%= review.comment %></p>
-            <p class="card-text"><small class="text-muted">Posted by <%= review.user.username %> on <%= review.created_at.strftime("%B %d, %Y") %></small></p>
-          </div>
+        <div class="card-review">
+          <h5 class="card-title"><strong>Rating: <%= review.rating %>/5</strong></h5>
+          <p class="card-text"><%= review.comment %></p>
+          <p class="card-text"><small class="text-muted">Posted by <strong><%= review.user.username %></strong> on <%= review.created_at.strftime("%B %d, %Y") %></small></p>
         </div>
       <% end %>
     <% else %>
